@@ -1,0 +1,92 @@
+; vim: ft=clojure
+(fn [#{config pkgs ...}]
+  {imports [:/etc/nixos/hardware-configuration.nix]
+   boot {loader {efi {canTouchEfiVariables true
+                      efiSysMountPoint "/boot/efi"}
+                 grub {default "saved"
+                       device "nodev"
+                       efiSupport true
+                       useOSProber true}}}
+   nix.extraOptions "
+    experimental-features = nix-command flakes
+   "
+   nixpkgs.config.allowUnfree true
+   networking.hostName "nixos"
+   networking.networkmanager.enable true
+   time.timeZone "America/Chicago"
+   i18n.defaultLocale "en_US.utf8"
+   services.xserver.enable true
+   services.xserver {desktopManager {cinnamon.enable true}
+                     displayManager {lightdm.enable true}
+                     windowManager {awesome.enable true}
+                     xkb {layout "us"
+                          variant ""
+                          options "ctrl:nocaps"}}
+   console.useXkbConfig true
+   services.printing.enable true
+   sound.enable true
+   hardware.pulseaudio.enable false
+   security.rtkit.enable true
+   services.pipewire {enable true
+                      alsa.enable true
+                      alsa.support32Bit true
+                      pulse.enable true}
+   users {defaultUserShell pkgs.zsh
+          users
+          {tnelson {isNormalUser true
+                    description "Thomas Nelson"
+                    extraGroups ["networkmanager" "wheel"]
+                    packages
+                    (with pkgs
+                      [babashka
+                       cargo
+                       discord
+                       firefox
+                       gcc
+                       gh
+                       ghc
+                       git
+                       ihaskell
+                       python312#ipython
+                       leiningen
+                       nim
+                       nimble
+                       nodejs
+                       obsidian
+                       python3
+                       vim
+                       vscode])}}}
+   programs
+   {command-not-found.enable true
+    htop.enable true
+    ssh.startAgent true
+    sysdig.enable false
+    systemtap.enable false
+    thefuck.enable true
+    tmux {enable true
+          clock24 true
+          newSession true
+          terminal "screen-256color"}
+    vim.defaultEditor true
+    zsh {enable true
+         autosuggestions.enable true
+         ohMyZsh {enable true
+                  plugins ["colored-man-pages"
+                           "git"]
+                  theme "agnoster"}
+         syntaxHighlighting.enable true}}
+   environment.systemPackages
+   (with pkgs
+     [awesome
+      curl
+      fish
+      powerline
+      rlwrap
+      tree
+      vim
+      unzip
+      wget
+      zsh])
+
+   fonts.enableDefaultPackages true
+   system.stateVersion "22.05"})
