@@ -4,7 +4,9 @@
     [babashka.cli :as cli]
     [clj-toolbox.prelude :refer [into-map]]
     [clj-toolbox.files :as files :refer [dir-exists? file-exists?]]
-    [hack-a-lisp.langs.nix :as nix])
+    [hack-a-lisp.langs.nix :as nix]
+    [hack-a-lisp.langs.terraform :as tf]
+    [taoensso.telemere :as t])
   (:gen-class))
 
 (defn show-help
@@ -20,7 +22,15 @@
 (def global-spec {})
 
 (def lang-configs
-  {:nix {:outext "nix"
+  {:tf {:outext "tf"
+        :repl tf/repl
+        :evaluate tf/fmt-evaluate
+        :ext "tflsp"}
+   :tfvars {:ext "tfvlsp"
+            :repl tf/repl
+            :evaluate tf/vars-evaluate
+            :outext "tfvars"}
+   :nix {:outext "nix"
          :repl nix/repl
          :evaluate nix/evaluate
          :ext "nixlsp"}})
@@ -42,12 +52,10 @@
         ext-key (keyword ext)]
     (if (contains? lang-exts ext-key)
       (let [{:keys [outext repl evaluate]} (get lang-exts ext-key)
-            new-filename (str (files/strip-ext f) \. outext)
-            result (evaluate (read-string (slurp f)))]
-        ;; TODO: Check if file exists
-        (println "INFO - Converting" f)
-        (println "INFO - Writing to" new-filename)
-        (spit new-filename result)))))
+            new-filename (str (files/strip-ext f) \. outext)]
+        (t/log! :info (str "Converting " f " => " new-filename))
+        (let [result (evaluate (files/read-all f))]
+          (spit new-filename result))))))
       ;; (println "DEBUG - Can't handle file extension" ext))))
 
 (defn convert-tree
@@ -71,14 +79,16 @@
   (when (not (contains? opts :file))
     (println "Usage: <> convert <file>")
     (System/exit 1))
-  (convert (:file opts)))
+  (convert (:file opts))
+  (System/exit 0))
 
 (defn convert-tree-wrapper
   [{:keys [opts]}]
   (when (not (contains? opts :dir))
     (println "Usage: <> convert-tree <dir>")
     (System/exit 1))
-  (convert-tree (:dir opts)))
+  (convert-tree (:dir opts))
+  (System/exit 0))
 
 (defn help
   [opts]

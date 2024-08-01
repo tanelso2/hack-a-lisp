@@ -38,12 +38,10 @@
     (make-set term)
     (vector? term)
     (make-list term)
+    (seq? term)
+    (join-seq evaluate term)
     :else
-    (throw (Exception. (pr-str "ERROR - unrecognized term " term)))))
-
-(defn- indent-lines
-  [s]
-  (str/replace s "\n" nl-indent))
+    (throw (Exception. (str "ERROR - unrecognized term " term)))))
 
 (defn- eval-indent
   [term]

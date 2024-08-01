@@ -5,7 +5,8 @@
             :url "https://unlicense.org"}
   :dependencies [[org.clojure/clojure "1.11.3"]
                  [org.babashka/cli "0.8.60"]
-                 [org.clojars.tanelso2/clj-toolbox "0.7.1"]]
+                 [org.clojars.tanelso2/clj-toolbox "0.7.2"]
+                 [com.taoensso/telemere "1.0.0-beta16"]]
   :plugins [[lein-cloverage "1.0.13"]
             [lein-shell "0.5.0"]
             [lein-ancient "0.6.15"]

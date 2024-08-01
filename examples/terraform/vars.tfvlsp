@@ -1,0 +1,4 @@
+; vim: ft=clojure
+{ecr_repos
+  {"findmythesis" {}
+   "rainbowgifs" {}}}
