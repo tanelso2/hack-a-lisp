@@ -1,4 +1,6 @@
-(ns hack-a-lisp.langs.common)
+(ns hack-a-lisp.langs.common
+  (:require
+    [clojure.string :as str]))
 
 (defn mk-repl
   [& {:keys [name evaluate]
@@ -21,6 +23,13 @@
         slurp
         read-string
         evaluate)))
+
+(def two-space-indent "  ")
+
+(defn indent-lines
+  [s & {:keys [indent] 
+        :or {indent two-space-indent}}]
+  (str/replace s "\n" (str "\n" indent))) 
 
 (defmacro deflisp
   "Declares some common functions for a language

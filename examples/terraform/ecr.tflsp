@@ -1,0 +1,14 @@
+; vim: ft=clojure
+(:module "ecr"
+  {source "./modules/ecr/"
+   ; Should for_each be a special form?
+   for_each     var.ecr_repos
+   name         each.key
+   mutable      each.value.mutable
+   scan_on_push each.value.scan_on_push
+   policy (if (not= each.value.policy_file null)
+              (file (join "/" ["." 
+                               "resources"
+                               "policies"
+                               each.value.policy_file]))
+              null)})

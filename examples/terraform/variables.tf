@@ -1,0 +1,10 @@
+variable "ecr_repos" {
+  type = map(
+    object({
+      scan_on_push = optional(bool, false)
+      policy_file  = optional(string)
+      mutable      = optional(bool, true)
+    })
+  )
+  default = {}
+}

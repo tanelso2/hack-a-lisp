@@ -39,7 +39,7 @@
     (vector? term)
     (make-list term)
     :else
-    (throw (Exception. (pr-str "ERROR - unrecognized term " term)))))
+    (throw (Exception. (str "ERROR - unrecognized term " term)))))
 
 (defn- indent-lines
   [s]
