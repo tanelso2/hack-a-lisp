@@ -41,10 +41,6 @@
     :else
     (throw (Exception. (str "ERROR - unrecognized term " term)))))
 
-(defn- indent-lines
-  [s]
-  (str/replace s "\n" nl-indent))
-
 (defn- eval-indent
   [term]
   (-> term
