@@ -40,3 +40,9 @@
   `(do
      (def ~'repl (mk-repl :name ~(str name) :evaluate ~evaluate))
      (def ~'eval-file (mk-eval-file :name ~(str name) :evaluate ~evaluate))))
+
+(defn surround
+  ([b s]
+   (surround b b s))
+  ([b a s]
+   (str b s a)))
