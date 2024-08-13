@@ -1,0 +1,20 @@
+name: hack-a-lisp build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - run: lein test
+    - run: |
+        lein cloverage --codecov; \
+        bash <(curl -s https://codecov.io/bash) -f target/coverage/codecov.json
+
