@@ -1,4 +1,4 @@
-(defproject hack-a-lisp "0.2.0-SNAPSHOT"
+(defproject hack-a-lisp "0.2.0"
   :description "Hack some lisps together, exploiting Clojure's read function to great effect."
   :url "http://github.com/tanelso2/hack-a-lisp"
   :license {:name "The Unlicense"
