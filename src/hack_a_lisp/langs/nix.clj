@@ -51,9 +51,11 @@
 
 (defn- make-list
   [l]
-  (let [evs (for [v l]
-              (eval-indent v))]
-    (str "[\n" indent (str/join nl-indent evs) "\n]")))
+  (if (empty? l)
+    "[]"
+    (let [evs (for [v l]
+                (eval-indent v))]
+      (str "[\n" indent (str/join nl-indent evs) "\n]"))))
 
 (defn- make-function
   [[params body]]
