@@ -22,7 +22,7 @@
                   ["update-readme-version"]
                   ["vcs" "commit"]
                   ["vcs" "tag" "--no-sign"]
-                  ;;["deploy"]
+                  ["deploy"]
                   ["change" "version" "leiningen.release/bump-version" "patch"]
                   ["vcs" "commit"]
                   ["vcs" "push"]])
