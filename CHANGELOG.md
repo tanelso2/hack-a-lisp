@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file. This change
 
 ## [Unreleased]
 
+## [0.2.2] — 2024-08-21
+
 ## [0.2.1] — 2024-08-21
 
 ## [0.2.0] — 2024-08-13
@@ -18,4 +20,5 @@ All notable changes to this project will be documented in this file. This change
 [0.1.1]: https://github.com/tanelso2/hack-a-lisp/compare/0.1.0...0.1.1
 [0.2.0]: https://github.com/tanelso2/hack-a-lisp/compare/0.1.1...0.2.0
 [0.2.1]: https://github.com/tanelso2/hack-a-lisp/compare/0.2.0...0.2.1
-[Unreleased]: https://github.com/tanelso2/hack-a-lisp/compare/0.2.1...HEAD
+[0.2.2]: https://github.com/tanelso2/hack-a-lisp/compare/0.2.1...0.2.2
+[Unreleased]: https://github.com/tanelso2/hack-a-lisp/compare/0.2.2...HEAD
