@@ -5,8 +5,7 @@
     [clj-toolbox.prelude :refer [into-map]]
     [clj-toolbox.files :as files :refer [dir-exists? file-exists?]]
     [hack-a-lisp.langs.nix :as nix]
-    [hack-a-lisp.langs.terraform :as tf]
-    [taoensso.telemere :as t])
+    [hack-a-lisp.langs.terraform :as tf])
   (:gen-class))
 
 (defn show-help
@@ -53,7 +52,7 @@
     (if (contains? lang-exts ext-key)
       (let [{:keys [outext repl evaluate]} (get lang-exts ext-key)
             new-filename (str (files/strip-ext f) \. outext)]
-        (t/log! :info (str "Converting " f " => " new-filename))
+        ;; (t/log! :info (str "Converting " f " => " new-filename))
         (let [result (evaluate (files/read-all f))]
           (spit new-filename result))))))
       ;; (println "DEBUG - Can't handle file extension" ext))))
