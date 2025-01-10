@@ -14,9 +14,10 @@
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all
                        :jvm-opts ["-Dclojure.compiler.direct-linking=true"]}}
-  :aliases {"update-readme-version" ["shell" "sed" "-i" "s/\\\\[hack-a-lisp \"[0-9.]*\"\\\\]/[hack-a-lisp \"${:version}\"]/" "README.md"]}
+  :aliases {"bump-version" ["change" "version" "leiningen.release/bump-version"]
+            "update-readme-version" ["shell" "sed" "-i" "s/\\\\[hack-a-lisp \"[0-9.]*\"\\\\]/[hack-a-lisp \"${:version}\"]/" "README.md"]}
   :release-tasks [["shell" "git" "diff" "--exit-code"]
-                  ["change" "version" "leiningen.release/bump-version" "release"]
+                  ["bump-version" "release"]
                   ["changelog" "release"]
                   ["update-readme-version"]
                   ["vcs" "commit"]
